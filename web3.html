@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUBSCRYPT by Web3 Solutions</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #0a0a14;
+      color: #e0e0f0;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      animation: float 8s ease-in-out infinite;
+      filter: blur(80px);
+    }
+    .shape1 { width: 200px; height: 200px; background: #a87fff; top: 10%; left: 80%; animation-duration: 10s; }
+    .shape2 { width: 150px; height: 150px; background: #80e0ff; top: 60%; left: 10%; animation-duration: 12s; }
+    .shape3 { width: 100px; height: 100px; background: #ff9a80; top: 40%; left: 50%; animation-duration: 9s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(20px); }
+    }
+    .container { position: relative; z-index: 5; max-width: 1200px; margin: auto; padding: 0 2rem; }
+    header.header {
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(15, 15, 30, 0.85);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 0;
+    }
+    .logo { font-size: 1.8rem; color: #a87fff; font-weight: 800; letter-spacing: -0.5px; }
+    nav.nav a {
+      color: #c5c5e0;
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    nav.nav a:hover { color: #80e0ff; }
+    nav.nav a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: #80e0ff;
+      transition: width 0.3s ease;
+    }
+    nav.nav a:hover::after { width: 100%; }
+
+    .hero {
+      display: flex; align-items: flex-start;
+      padding: 4rem 0 1rem;
+      min-height: 40vh;
+      gap: 2rem;
+      position: relative;
+    }
+    .hero-content {
+      flex: 1; min-width: 300px; text-align: left; z-index: 5;
+    }
+    .hero-content h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #a87fff, #80e0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+    .hero-content p {
+      font-size: 1.5rem;
+      color: #c5c5e0;
+      margin-bottom: 2rem;
+    }
+    .cta-button {
+      display: inline-block;
+      background: linear-gradient(90deg, #a87fff, #70b0ff);
+      color: white;
+      text-decoration: none;
+      padding: 1rem 2rem;
+      font-size: 1.1rem;
+      border-radius: 50px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .cta-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(130, 100, 255, 0.3);
+    }
+
+    .section {
+      padding: 1rem 0 4rem;
+      background: rgba(20,20,35,0.4);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(100,100,150,0.15);
+    }
+    .section h2 {
+      font-size: 2.8rem; text-align: left;
+      margin-bottom: 1rem; color: #d0c0ff;
+    }
+    .section p {
+      font-size: 1.3rem; text-align: left;
+      max-width: 800px; margin: 0.5rem 0;
+      color: #c5c5e0;
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px,1fr));
+      gap: 2.5rem; margin-top: 2rem;
+    }
+    .service-item {
+      background: rgba(40,40,60,0.5);
+      border: 1px solid rgba(168,127,255,0.2);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+      transition: transform 0.3s ease;
+      text-align: left;
+    }
+    .service-item:hover { transform: translateY(-5px); }
+    .service-item h3 { color: #a87fff; margin-bottom: 1rem; font-size: 1.5rem; }
+    .service-item p { font-size: 1.1rem; color: #c5c5e0; }
+
+    .benefits-wrapper { margin-top: 2rem; }
+    .benefits-labels {
+      display: flex; justify-content: space-between;
+      max-width: 1200px; margin: 0 auto 1rem;
+      padding: 0 2rem;
+    }
+    .benefits-labels .label {
+      padding: 0.5rem 1rem;
+      background: linear-gradient(90deg, #a87fff, #80e0ff);
+      border-radius: 20px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0a0a14;
+    }
+    .benefits-columns {
+      display: flex; gap: 3rem; flex-wrap: wrap;
+      justify-content: center;
+    }
+    .benefits-column {
+      flex: 1; min-width: 320px;
+      display: flex; flex-direction: column; gap: 2rem;
+    }
+    .benefit-block {
+      display: flex; align-items: center;
+      background: rgba(50,50,80,0.6);
+      border-radius: 14px;
+      padding: 1.5rem 2rem;
+      min-height: 80px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    .benefit-block:hover { transform: translateY(-4px); }
+    .benefit-block .icon {
+      width: 48px; height: 48px;
+      margin-right: 1.5rem;
+    }
+
+    .contacts-layout {
+      display: flex; flex-wrap: wrap; gap: 2rem;
+      align-items: flex-start; margin-top: 1rem;
+    }
+    .contact-details {
+      flex: 1; min-width: 280px; text-align: left;
+    }
+    .contact-details p { margin-bottom: 1rem; font-size: 1rem; }
+    .map-container { flex: 1.5; min-width: 300px; }
+    .map-container iframe { width: 100%; height: 100%; border: 0; border-radius: 12px; min-height: 300px; }
+
+    footer.footer {
+      background: rgba(15,15,25,0.9);
+      padding: 3rem 0;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #a0a0c0;
+      border-top: 1px solid rgba(100,100,150,0.2);
+      backdrop-filter: blur(10px);
+      display: flex; flex-direction: column; align-items: center;
+      gap: 1rem;
+    }
+    footer.footer img { height: 60px; opacity: 0.8; }
+
+    @media(max-width:768px) {
+      .hero { flex-direction: column; text-align: left; }
+      nav.nav a { margin-left: 1rem; font-size: 0.9rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .benefits-columns { flex-direction: column; align-items: center; }
+      .contacts-layout { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shape shape1"></div>
+  <div class="shape shape2"></div>
+  <div class="shape shape3"></div>
+  <header class="header container">
+    <div class="logo">SUBSCRYPT</div>
+    <nav class="nav">
+      <a href="#hero">Главная</a>
+      <a href="#about">О нас</a>
+      <a href="#services">Услуги</a>
+      <a href="#advantages">Преимущества</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section id="hero" class="hero">
+      <div class="hero-content">
+        <h1>Подписки нового уровня — гибкие, прозрачные, на блокчейне</h1>
+        <p>Платформа для NFT-подписок, где пользователи управляют, перепродают и замораживают подписки, а бизнес сохраняет контроль и получает рост лояльности.</p>
+        <a href="https://app-1-kappa.vercel.app" class="cta-button" target="_blank">Попробовать демо</a>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <h2>О нас</h2>
+      <p>SUBSCRYPT — это экосистема, объединяющая подписочные сервисы и блокчейн. Мы создали маркетплейс, где подписки становятся цифровыми активами. Пользователи получают полный контроль: перепродажу, заморозку, отмену. Бизнес — инструменты удержания, аналитики и монетизации. Мы решаем ключевые проблемы подписочной модели через NFT с динамической логикой и обновляемой метадатой.</p>
+    </section>
+
+    <section id="services" class="section">
+      <h2>Наши услуги</h2>
+      <div class="services-grid">
+        <div class="service-item">
+          <h3>Создание NFT с бизнес-логикой "под ключ"</h3>
+          <p>Не просто изображения. Мы превращаем NFT в ключи, абонементы, пропуски — с логикой, триггерами и состояниями.</p>
+        </div>
+        <div class="service-item">
+          <h3>Размещение NFT-подписок на маркетплейсе</h3>
+          <p>Бесплатно. Всё в одном месте. Комиссия за продажу — всего 1%.</p>
+        </div>
+        <div class="service-item">
+          <h3>Консультации и разработка NFT-систем</h3>
+          <p>Помогаем бизнесу легко перейти в web3. От идеи до запуска.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="advantages" class="section">
+      <h2>Преимущества</h2>
+      <div class="benefits-labels">
+        <div class="label">Для бизнеса</div><div class="label">Для клиентов</div>
+      </div>
+      <div class="benefits-columns">
+        <div class="benefits-column">
+          <div class="benefit-block"><img src="https://cdn-icons-png.flaticon.com/512/9119/9119160.png" class="icon" alt="Удержание"><span>Удержание клиентов</span></div>
+          <div class="benefit-block"><img src="https://cdn-icons-png.flaticon.com/512/11507/11507392.png" class="icon" alt="Монетизация"><span>Гибкая монетизация</span></div>
+          <div class="benefit-block"><img src="https://cdn-icons-png.flaticon.com/512/294/294968.png" class="icon" alt="Аналитика"><span>Прозрачная аналитика</span></div>
+          <div class="benefit-block"><img src="https://cdn-icons-png.flaticon.com/512/1235/1235333.png" class="icon" alt="Комиссия"><span>Низкая комиссия</span></div>
+        </div>
+        <div class="benefits-column">
+          <div class="benefit-block"><img src="https://cdn-icons-png.flaticon.com/512/7426/7426463.png" class="icon" alt="Контроль"><span>Полный контроль</span></div>
+          <div class="benefit-block"><img src="https://cdn-icons-png.flaticon.com/512/302/302409.png" class="icon" alt="Перепродажа"><span>Перепродажа и обмен подписок</span></div>
+          <div class="benefit-block"><img src="https://cdn-icons-png.flaticon.com/512/2473/2473007.png" class="icon" alt="Защита"><span>Защита от списаний</span></div>
+          <div class="benefit-block"><img src="https://cdn-icons-png.flaticon.com/512/2920/2920329.png" class="icon" alt="Приложение"><span>Единое приложение для всех подписок</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacts" class="section">
+      <h2>Контакты</h2>
+      <div class="contacts-layout">
+        <div class="contact-details">
+          <p><strong>Компания:</strong> Web3 Solutions</p>
+          <p><strong>Email:</strong> <a href="mailto:web3_solutions@inbox.ru" style="color:#80e0ff;">web3_solutions@inbox.ru</a></p>
+          <p><strong>Адрес:</strong> 121205, Москва, Инновационный Центр Сколково, Большой б-р, д. 30 стр. 1</p>
+        </div>
+        <div class="map-container"><iframe src="https://www.google.com/maps?q=121205+Moscow+Skolkovo+Innovation+Center+30+1&output=embed" loading="lazy"></iframe></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <p>Проект создан при поддержке Федерального государственного бюджетного учреждения "Фонд содействия развитию малых форм предприятий в научно-технической сфере" в рамках программы "Студенческий стартап" федерального проекта "Платформа университетского технологического предпринимательства"</p>
+    <img src="logo.png" alt="Логотип Фонда">
+  </footer>
+</body>
+</html>
